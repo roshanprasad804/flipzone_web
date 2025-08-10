@@ -1,14 +1,10 @@
 <div class="register-container">
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+  <form [formGroup]="registerForm" *ngIf="!message" (ngSubmit)="onSubmit()" class="register-form">
     <h2>Register</h2>
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" required>
     </mat-form-field>
-    <!-- <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Age</mat-label>
-      <input matInput formControlName="age" type="number" min="1" required>
-    </mat-form-field> -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" required>
@@ -19,7 +15,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Mobile Number</mat-label>
-      <input matInput formControlName="mobile" type="tel" maxlength="10" required>
+      <input matInput formControlName="mobileNo" type="tel" maxlength="10" required>
     </mat-form-field>
     <button mat-flat-button color="primary" class="full-width" type="submit">Register</button>
     <div class="login-link">
@@ -27,4 +23,7 @@
       <a routerLink="/login">Login</a>
     </div>
   </form>
+  <div *ngIf="message">
+    User {{message.name}} is successfully created!
+  </div>
 </div>
