@@ -4,6 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { HttpService } from '../shared/http.service';
 
 @Component({
   selector: 'app-login',
@@ -19,17 +20,22 @@ import { RouterModule } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  data: any;
+
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private httpService: HttpService) {}
 
   onSubmit() {
     if (this.loginForm.valid) {
       // Handle login logic here
       console.log(this.loginForm.value);
+      this.httpService.userLogin(this.loginForm.value).subscribe((data:any) => {
+        this.data = data;
+      });
     }
   }
 }

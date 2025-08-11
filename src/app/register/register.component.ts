@@ -4,6 +4,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { HttpService } from '../shared/http.service';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -13,26 +16,33 @@ import { RouterModule } from '@angular/router';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule,
+    CommonModule,
   ],
+  providers: [HttpService],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  data: any;
+  
   registerForm = this.fb.group({
     name: ['', Validators.required],
-    // age: ['', [Validators.required, Validators.min(1)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
-    mobile: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]]
+    mobileNo: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]]
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private httpService:HttpService) {}
 
   onSubmit() {
     if (this.registerForm.valid) {
       // Handle registration logic here
-      console.log(this.registerForm.value);
+      this.httpService.addUser(this.registerForm.value).subscribe((data:any) => {
+        this.data = data;
+      });
+
     }
   }
 }
