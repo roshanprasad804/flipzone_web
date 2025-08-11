@@ -6,9 +6,20 @@ import { Injectable } from '@angular/core';
 })
 export class HttpService {
 
+  baseUrl = 'http://localhost:8080/api/v1';
+
+  userCreationUrl = 'users/addUser';
+  userlogin = 'users/login';
+
   constructor(private http:HttpClient) { }
 
-  addUser(data:any) {
-    return this.http.post('http://localhost:8080/api/v1/users/adduser',data);
+  //User Registration
+  addUser(formData:any) {
+    return this.http.post(`${this.baseUrl}/${this.userCreationUrl}`,formData);
+  }
+
+  //User Login
+  userLogin(creds:any) {
+    return this.http.post(`${this.baseUrl}/${this.userlogin}`,creds);
   }
 }

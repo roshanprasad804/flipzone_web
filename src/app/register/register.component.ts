@@ -25,7 +25,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  message: any;
+  data: any;
   
   registerForm = this.fb.group({
     name: ['', Validators.required],
@@ -40,7 +40,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       // Handle registration logic here
       this.httpService.addUser(this.registerForm.value).subscribe((data:any) => {
-        this.message = data;
+        this.data = data;
       });
 
     }
