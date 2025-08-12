@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { HttpService } from '../shared/http.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,10 @@ import { HttpService } from '../shared/http.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
+  providers: [HttpService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
